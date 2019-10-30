@@ -64,6 +64,17 @@ While the documentation is quite technical, it is useful to get familiarized wit
 ### Connect back-end and front-end
 [npm install npm-run-all] - Unless I want to deploy the app - at which stage the package JSOn files and an [npm-run-build] are required I do not set up a proxy server or static files, I merely install dependencies.
 
+So at this stage the package-json looks like this
+```
+	"scripts": {
+		"start-frontend": "react-scripts start",
+		"start-backend": "nodemon src/backend/server.js",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+```	
+
 Just before deploy I will run build and modify the servers to add a proxy server in package JSOn and express
 
 ```
