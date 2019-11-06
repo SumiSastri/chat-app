@@ -11,7 +11,9 @@ export default class App extends Component {
 		super();
 		this.state = {
 			route: 'signinForm',
-			isSignedIn: false
+			isSignedIn: false,
+			name: 'name',
+			email: 'email'
 		};
 	}
 	onRouteChange = (route) => {

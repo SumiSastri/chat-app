@@ -42,3 +42,27 @@ const NavComponent = ({ onRouteChange, isSignedIn }) => {
 };
 
 export default NavComponent;
+
+// class Nav extends React.Component {
+// 	constructor() {
+// 	  super()
+// 	  this.state = { navbarOpen: false }
+
+// 	  this.logout = this.logout.bind(this)
+// 	  this.toggleNavbar = this.toggleNavbar.bind(this)
+// 	}
+
+// 	logout() {
+// 	  Auth.logout()
+// 	  this.props.history.push('/')
+// 	}
+
+// 	toggleNavbar() {
+// 	  this.setState({ navbarOpen: !this.state.navbarOpen })
+// 	}
+
+// 	componentDidUpdate(prevProps) {
+// 	  if (this.props.location.pathname !== prevProps.location.pathname) {
+// 		this.setState({ navbarOpen: false })
+// 	  }
+// 	}
