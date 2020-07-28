@@ -21,104 +21,12 @@ Dev dependencies to ensure transpiling of ES-6
 &&
 [npm install node express request-promise cors dotenv mongoose socket.io -S]
 
-1. [npm install node -S]  (adds node.js)
-2. [npm install nodemon -S] (adds hot loading of backend server with nodemon)
-3. [npm install express -S] (install express midware - ajax and body-parser inbuilt)
-4. [npm install request-promise -S][npm install request] (sets up back end API to get methods of request-promise from ES-6)
-5. [npm install cors] enables cross-origin-resource-sharing, prevents resource blocking
-6. [npm install dotenv] enables saving of passwords, files with keys for access
-7. [npm install mongoose] ORM for mongoDb
-
-Creating the `.babelrc` [touch .babelrc]
-
-```
-{
-  "presets": ["env", "stage-0"]
-}
-```
-
-Use stage-0 to include all versions of ES-6
-
-Change the backend package-JSON scripts file to use nodemon and transpile all ES6 files with babel using the js file extenstions.
-
-`"start": "nodemon server.js --exec babel-node -e js"`
-
 ### Back-end folder structure
 
 - models (data design constructors, data schemas and data models)
 - controllers (controlling data flow from CRUD routes)
 - routes (CRUD routes)
 - server (express server and middleware)
-
-## Server set-up
-
-Points to note: body-parser is now included in the Express server, I declare it as I have noted some errors if it is excluded
-
-Cross Origin Resources or CORs is a 3rd party middleware
-
-The stacking of the middleware `app.use` is important for the server to run correctly.
-
-```
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 5000;
-const cors = require("cors");
-
-const bodyParser = require("body-parser");
-
-app.use(cors());
-app.use(express.json());
-
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-app.get("/", (req, res) => {
-  res.send("chat app is working");
-});
-
-app.listen(PORT, () => console.log(`chat-app listening on ${PORT}`));
-```
-
-### dotenv set up
-
-`touch .env` to create a dotenv file for your mongodB in the backend folder
-
-```
-DB_CONNECTION=`mongodb+srv://<username>:<password>@cluster0.xfd8y.mongodb.net/test`
-```
-
-In terminal run command `git config --global core.excludesfile ~/.gitignore_global`
-
-Add a gitignore file - `touch .gitignore` in the backend folder and copy and paste the files from the front-end git ignore files or this code block below, -- if there is no gitignore file on front-end add a file there too to bullet-proof the ignore files.
-
-```
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.env
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-```
 
 ### Front-end libraries
 
@@ -398,7 +306,103 @@ put - not working
 post - not working
 delete - not tried
 
-### Task6 checking socket.io & Twilio API
+### Task6 back-end clean up Express server set-up
+
+1. [npm install node -S]  (adds node.js)
+2. [npm install nodemon -S] (adds hot loading of backend server with nodemon)
+3. [npm install express -S] (install express midware - ajax and body-parser inbuilt)
+4. [npm install request-promise -S][npm install request] (sets up back end API to get methods of request-promise from ES-6)
+5. [npm install cors] enables cross-origin-resource-sharing, prevents resource blocking
+6. [npm install dotenv] enables saving of passwords, files with keys for access
+7. [npm install mongoose] ORM for mongoDb
+
+Creating the `.babelrc` [touch .babelrc]
+
+```
+{
+  "presets": ["env", "stage-0"]
+}
+```
+
+Use stage-0 to include all versions of ES-6
+
+Change the backend package-JSON scripts file to use nodemon and transpile all ES6 files with babel using the js file extenstions.
+
+`"start": "nodemon server.js --exec babel-node -e js"`
+
+## Server set-up
+
+Points to note: body-parser is now included in the Express server, I declare it as I have noted some errors if it is excluded
+
+Cross Origin Resources or CORs is a 3rd party middleware
+
+The stacking of the middleware `app.use` is important for the server to run correctly.
+
+```
+const express = require("express");
+const app = express();
+const PORT = process.env.PORT || 5000;
+const cors = require("cors");
+
+const bodyParser = require("body-parser");
+
+app.use(cors());
+app.use(express.json());
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+app.get("/", (req, res) => {
+  res.send("chat app is working");
+});
+
+app.listen(PORT, () => console.log(`chat-app listening on ${PORT}`));
+```
+
+### dotenv set up
+
+`touch .env` to create a dotenv file for your mongodB in the backend folder
+
+```
+DB_CONNECTION=`mongodb+srv://<username>:<password>@cluster0.xfd8y.mongodb.net/test`
+```
+
+In terminal run command `git config --global core.excludesfile ~/.gitignore_global`
+
+Add a gitignore file - `touch .gitignore` in the backend folder and copy and paste the files from the front-end git ignore files or this code block below, -- if there is no gitignore file on front-end add a file there too to bullet-proof the ignore files.
+
+```
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+```
+
+To complete the dotenv set up, we need to require the `.env` module and import it `require("dotenv/config");` in the `server.js` file
+
+### client-side security
 
 Notes on bcrypt
 bcrypt-nodejs documentation [https://www.npmjs.com/package/bcrypt-nodejs] it is being deprecated
