@@ -5,15 +5,10 @@
 ## File access
 
 - git clone
-- use nodemon to run the main file scripts - usually index.js in a react app.
 
 ## Scaffolding
 
-### Front-end libraries
-
-1. [npx create-react-app]
-2. [npm install tachyons -s] (installs tachyons) A CSS tool-kit for rapid styling (tachy is the Greek word for rapid!) They are responsive based on mobile-first design, with low-specificity that can be overwritten and excellent documentation [http://tachyons.io/docs/] to experiment with - ideal for quick mock-ups and M
-3. [npm install --save react-tilt] animation in React.js
+Reviewing back-end scaffolding and set-up
 
 ### Back-end dependencies and libraries
 
@@ -25,6 +20,12 @@
 4. [npm install request-promise -S][npm install request] (sets up back end API to get methods of request-promise from ES-6)
 5. [npm install cors] enables cross-origin-resource-sharing, prevents resource blocking
 6. [npm install dotenv] enables saving of passwords, files with keys for access
+
+### Front-end libraries
+
+1. [npx create-react-app]
+2. [npm install tachyons -s] (installs tachyons) A CSS tool-kit for rapid styling (tachy is the Greek word for rapid!) They are responsive based on mobile-first design, with low-specificity that can be overwritten and excellent documentation [http://tachyons.io/docs/] to experiment with - ideal for quick mock-ups and M
+3. [npm install --save react-tilt] animation in React.js
 
 ### Connect back-end and front-end
 
