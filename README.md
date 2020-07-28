@@ -5,15 +5,21 @@
 ## File access
 
 - git clone
-- cd into the backend folder npm init -y
 
 ## Scaffolding
 
-Reviewing back-end scaffolding and set-up
+- cd into the backend folder `npm init -y`
+- reinstall dev-dependencies
+- if app crashes as it is already listening to on the port requested run a `pkill node` as `control c` only clears the terminal without killing the instance of node.
+  More debugging on stackoverflow [https://stackoverflow.com/questions/4075287/node-express-eaddrinuse-address-already-in-use-kill-server]
 
 ### Back-end dependencies and libraries
 
-[npm install node nodemon express request-promise cors dotenv -S]
+Dev dependencies to ensure transpiling of ES-6
+
+[npm install --save-dev babel-cli babel-preset-env babel-preset-stage-0]
+&&
+[npm install node nodemon express request-promise cors dotenv mongoose -S]
 
 1. [npm install node -S]  (adds node.js)
 2. [npm install nodemon -S] (adds hot loading of backend server with nodemon)
@@ -21,6 +27,21 @@ Reviewing back-end scaffolding and set-up
 4. [npm install request-promise -S][npm install request] (sets up back end API to get methods of request-promise from ES-6)
 5. [npm install cors] enables cross-origin-resource-sharing, prevents resource blocking
 6. [npm install dotenv] enables saving of passwords, files with keys for access
+7. [npm install mongoose] ORM for mongoDb
+
+Creating the `.babelrc` [touch .babelrc]
+
+```
+{
+  "presets": ["env", "stage-0"]
+}
+```
+
+Use stage-0 to include all versions of ES-6
+
+Change the backend package-JSON scripts file to use nodemon and transpile all ES6 files with babel using the js file extenstions.
+
+`"start": "nodemon server.js --exec babel-node -e js"`
 
 ### Front-end libraries
 
