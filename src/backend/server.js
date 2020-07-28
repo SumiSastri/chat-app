@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const cors = require("cors");
+import mongoose from 'mongoose'
+import bodyparser from 'body-parser'
 
 const bodyParser = require("body-parser");
 
@@ -18,9 +20,13 @@ app.use(
     extended: true,
   })
 );
+
+
+
 app.get("/", (req, res) => {
   res.send("chat app is working");
 });
+
 app.get("/messages", (req, res) => {
   res.send(messages);
 });

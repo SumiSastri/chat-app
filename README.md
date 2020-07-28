@@ -81,6 +81,16 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => console.log(`chat-app listening on ${PORT}`));
 ```
 
+### dotenv set up
+
+`touch .env` to create a dotenv file for your mongodB
+
+Add the connection test and commit changes, make sure the files are being ignored.
+
+```
+DB_CONNECTION=`mongodb+srv://<username>:<password>@cluster0.xfd8y.mongodb.net/test`
+```
+
 ### Front-end libraries
 
 1. [npx create-react-app]
@@ -360,13 +370,6 @@ post - not working
 delete - not tried
 
 ### Task6 checking socket.io & Twilio API
-
-- Team interest in both Twilio and socket.io - research for both to develop user stories
-
-- What user stories - sms, voice, video 2-way or multi-way chats?
-- Authentication of sign-in - JWT, Authy or bcrypt?
-- How do we style the logged-in user exprience components based on these decisions?
-- What data do we need to capture and where? - Db of choice MongoDB
 
 Notes on bcrypt
 bcrypt-nodejs documentation [https://www.npmjs.com/package/bcrypt-nodejs] it is being deprecated
