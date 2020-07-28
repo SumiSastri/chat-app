@@ -17,9 +17,9 @@
 
 Dev dependencies to ensure transpiling of ES-6
 
-[npm install --save-dev babel-cli babel-preset-env babel-preset-stage-0]
+[npm install --save-dev nodemon babel-cli babel-preset-env babel-preset-stage-0]
 &&
-[npm install node nodemon express request-promise cors dotenv mongoose -S]
+[npm install node express request-promise cors dotenv mongoose socket.io -S]
 
 1. [npm install node -S]  (adds node.js)
 2. [npm install nodemon -S] (adds hot loading of backend server with nodemon)
@@ -42,6 +42,36 @@ Use stage-0 to include all versions of ES-6
 Change the backend package-JSON scripts file to use nodemon and transpile all ES6 files with babel using the js file extenstions.
 
 `"start": "nodemon server.js --exec babel-node -e js"`
+
+### Back-end folder structure
+
+- models (data design constructors, data schemas and data models)
+- controllers (controlling data flow from CRUD routes)
+- routes (CRUD routes)
+- server (express server and middleware)
+
+## Server set-up
+
+Points to note: body-parser is now included in the Express server
+Cross Origin Resources or CORs is a 3rd party middleware
+
+The stacking of the middleware `app.use` is important for the server to run correctly.
+
+```
+const express = require("express");
+const app = express();
+const PORT = process.env.PORT || 5000;
+const cors = require("cors");
+
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("chat app is working");
+});
+
+app.listen(PORT, () => console.log(`chat-app listening on ${PORT}`));
+```
 
 ### Front-end libraries
 
