@@ -5,6 +5,7 @@
 ## File access
 
 - git clone
+- cd into the backend folder npm init -y
 
 ## Scaffolding
 
