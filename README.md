@@ -10,7 +10,7 @@
 
 - cd into the backend folder `npm init -y`
 - reinstall dev-dependencies
-- if app crashes as it is already listening to on the port requested run a `pkill node` as `control c` only clears the terminal without killing the instance of node.
+- if app crashes as it is already listening to on the port requested run a `pkill node` short for (process kill node) as `control c` only clears the terminal without killing the instance of node.
   More debugging on stackoverflow [https://stackoverflow.com/questions/4075287/node-express-eaddrinuse-address-already-in-use-kill-server]
 
 ### Back-end dependencies and libraries
@@ -52,7 +52,8 @@ Change the backend package-JSON scripts file to use nodemon and transpile all ES
 
 ## Server set-up
 
-Points to note: body-parser is now included in the Express server
+Points to note: body-parser is now included in the Express server, I declare it as I have noted some errors if it is excluded
+
 Cross Origin Resources or CORs is a 3rd party middleware
 
 The stacking of the middleware `app.use` is important for the server to run correctly.
@@ -63,9 +64,16 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const cors = require("cors");
 
+const bodyParser = require("body-parser");
+
 app.use(cors());
 app.use(express.json());
 
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.get("/", (req, res) => {
   res.send("chat app is working");
 });
