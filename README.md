@@ -89,7 +89,9 @@ app.listen(PORT, () => console.log(`chat-app listening on ${PORT}`));
 DB_CONNECTION=`mongodb+srv://<username>:<password>@cluster0.xfd8y.mongodb.net/test`
 ```
 
-Now `touch .gitignore` in the backend folder and copy and paste the files from the front-end git ignore files or this code block below
+In terminal run command `git config --global core.excludesfile ~/.gitignore_global`
+
+Add a gitignore file - `touch .gitignore` in the backend folder and copy and paste the files from the front-end git ignore files or this code block below, -- if there is no gitignore file on front-end add a file there too to bullet-proof the ignore files.
 
 ```
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
@@ -107,18 +109,16 @@ Now `touch .gitignore` in the backend folder and copy and paste the files from t
 
 # misc
 .DS_Store
-.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ```
-
-In terminal git config --global core.excludesfile ~/.gitignore_global
 
 ### Front-end libraries
 
