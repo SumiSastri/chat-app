@@ -4,9 +4,7 @@
 
 ## File access
 
-- git clone
-
-## Scaffolding
+`git clone`
 
 - cd into the backend folder `npm init -y`
 - reinstall dev-dependencies
@@ -19,14 +17,7 @@ Dev dependencies to ensure transpiling of ES-6
 
 [npm install --save-dev nodemon babel-cli babel-preset-env babel-preset-stage-0]
 &&
-[npm install node express request-promise cors dotenv mongoose socket.io -S]
-
-### Back-end folder structure
-
-- models (data design constructors, data schemas and data models)
-- controllers (controlling data flow from CRUD routes)
-- routes (CRUD routes)
-- server (express server and middleware)
+[npm install node express request-promise cors dotenv mongoose bodyparser socket.io -S]
 
 ### Front-end libraries
 
@@ -34,66 +25,11 @@ Dev dependencies to ensure transpiling of ES-6
 2. [npm install tachyons -s] (installs tachyons) A CSS tool-kit for rapid styling (tachy is the Greek word for rapid!) They are responsive based on mobile-first design, with low-specificity that can be overwritten and excellent documentation [http://tachyons.io/docs/] to experiment with - ideal for quick mock-ups and M
 3. [npm install --save react-tilt] animation in React.js
 
-### Connect back-end and front-end
+### Client side security
 
-1. [npm install npm-run-all]
-
-So at this stage the package-json looks like this
-
-```
-	"scripts": {
-		"start-frontend": "react-scripts start",
-		"start-backend": "nodemon src/backend/server.js",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-```
-
-Just before deploy I will run build and modify the servers to add a proxy server in package JSOn and express
-
-```
-[npm run build]
-Modify scripts
-
-    "scripts": {
-    "start": "npm-run-all -s build start-backend",
-    "start-frontend": "react-scripts start",
-    "start-backend": "nodemon src/back-end/server.js",
-    "start-dev": "npm-run-all -p start-frontend start-backend",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-
-Add proxy just above es lint and below scripts
-
- "proxy": "http://localhost:3001",
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-```
-
-## Set up file structure
-
-Compartmentalize the back-end and front-end src files, in the front-end I set up common and app-pages as 2 folders. Common sets up all components that are reusable across multiple pages - nav bars, buttons, search bars, scrolly-bars, etc. The app-pages are purely for the app and all feed into App.js which then feeds into index.js.
-
-The back-end I have server.js to set up the server files with the basic documentation from express
-
-```
-const express = require('express');
-const app = express();
-const port = 3000;
-
-app.listen(port, () => console.log(`chat-app listening on ${port}`));
-
-```
-
-I test to see if this is working. [npm run start-backend] modify scripts file with
-
-`"start-backend": "nodemon <filepath of server.js>",`
-
-In the front-end I set up an app.js component with a hello-world tag to check it is is compiling, I also add hello world to components in the common folder after that. I test to see if this is working [npm run start] Both servers are on port 3000 at this stage and I do not change this until much later.
+Notes on bcrypt
+bcrypt-nodejs documentation [https://www.npmjs.com/package/bcrypt-nodejs] it is being deprecated
+recommendation to use bycrypt-js [https://www.npmjs.com/package/bcryptjs]
 
 ### Setting up project structure
 
@@ -293,20 +229,19 @@ const NavComponent = ({ onRouteChange, isSignedIn }) => {
 export default NavComponent;
 ```
 
-### Task5 testing Signin routes REST-API
+### Task5 - backend scaffolding, cleaning up set-up
 
-Add cors and body-Parser to project
+The back-end structure was weak, so when I came back to the project after some further node, express and mongo research cloned into the project to clean up the back-end folder structure and set up of the packages.
 
-[npm install body-parser]
-documentation [https://www.npmjs.com/package/body-parser]
+**Folder structure**
 
-Test the CRUD cycle with users
-get - working
-put - not working
-post - not working
-delete - not tried
+- models (data design constructors, data schemas and data models)
+- controllers (controlling data flow from CRUD routes)
+- routes (CRUD routes)
+- server (express server and middleware)
 
-### Task6 back-end clean up Express server set-up
+  **Dependencies**
+  In the root backend folder
 
 1. [npm install node -S]  (adds node.js)
 2. [npm install nodemon -S] (adds hot loading of backend server with nodemon)
@@ -315,6 +250,7 @@ delete - not tried
 5. [npm install cors] enables cross-origin-resource-sharing, prevents resource blocking
 6. [npm install dotenv] enables saving of passwords, files with keys for access
 7. [npm install mongoose] ORM for mongoDb
+8. [npm install bodyparser][https://www.npmjs.com/package/body-parser]
 
 Creating the `.babelrc` [touch .babelrc]
 
@@ -330,7 +266,7 @@ Change the backend package-JSON scripts file to use nodemon and transpile all ES
 
 `"start": "nodemon server.js --exec babel-node -e js"`
 
-## Server set-up
+**Express server set-up**
 
 Points to note: body-parser is now included in the Express server, I declare it as I have noted some errors if it is excluded
 
@@ -349,11 +285,13 @@ const bodyParser = require("body-parser");
 app.use(cors());
 app.use(express.json());
 
+
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
+
 app.get("/", (req, res) => {
   res.send("chat app is working");
 });
@@ -361,17 +299,20 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => console.log(`chat-app listening on ${PORT}`));
 ```
 
-### dotenv set up
+Run nodemon and check that the route is working
+Go to localhost:5000 check the home route is working
+
+**dotenv set up**
 
 `touch .env` to create a dotenv file for your mongodB in the backend folder
 
 ```
-DB_CONNECTION=`mongodb+srv://<username>:<password>@cluster0.xfd8y.mongodb.net/test`
+DB_CONNECTION=mongodb+srv://<username>:<password>@cluster0.xfd8y.mongodb.net/test
 ```
 
 In terminal run command `git config --global core.excludesfile ~/.gitignore_global`
 
-Add a gitignore file - `touch .gitignore` in the backend folder and copy and paste the files from the front-end git ignore files or this code block below, -- if there is no gitignore file on front-end add a file there too to bullet-proof the ignore files.
+Add a gitignore file - `touch .gitignore` in the backend folder and copy and paste the files from the front-end git ignore files or this code block below, -- if there is no gitignore file on front-end add a file there too to bullet-proof the ignore files - at the end of the misc section `.env` add the file extention.
 
 ```
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
@@ -400,10 +341,127 @@ yarn-debug.log*
 yarn-error.log*
 ```
 
-To complete the dotenv set up, we need to require the `.env` module and import it `require("dotenv/config");` in the `server.js` file
+To complete the dotenv set up, we need to require the `.env` module and import it `require("dotenv").config()` in the `server.js` file. This should be right at the top
 
-### client-side security
+TutoriaL: [https://scotch.io/courses/create-a-crud-app-with-node-and-mongodb/environment-variables]
 
-Notes on bcrypt
-bcrypt-nodejs documentation [https://www.npmjs.com/package/bcrypt-nodejs] it is being deprecated
-recommendation to use bycrypt-js [https://www.npmjs.com/package/bcryptjs]
+```
+require("dotenv").config()
+
+const express = require("express");
+const app = express();
+const PORT = process.env.PORT || 5000;
+const cors = require("cors");
+
+
+const bodyParser = require("body-parser");
+
+app.use(cors());
+app.use(express.json());
+
+app.use(
+bodyParser.urlencoded({
+extended: true,
+})
+);
+
+app.get("/", (req, res) => {
+res.send("chat app is working");
+});
+
+app.listen(PORT, () => console.log(`chat-app listening on ${PORT}`));
+```
+
+**mongo-db set up with dot.env variable**
+In the dotenv file now replace the username and password placeholders with the username and password.
+
+```
+DB_CONNECTION=mongodb+srv://<username>:<password>@cluster0.xfd8y.mongodb.net/test
+```
+
+In `server.js` intantiate mongoose, the mongoDB ORM, and used the method `mongoose.connect()` to set up the connection between the cloud-based DB and the server. The method should be written just above the `app.listen()` method as we are using a bespoke error handler and we do not want this error handler to conflict with Express' inbuilt error handler.
+
+Use the template string from the dotenv file in a variable - `dBurl`
+
+```
+require("dotenv").config();
+
+const express = require("express");
+const app = express();
+const PORT = process.env.PORT || 5000;
+const cors = require("cors");
+
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+
+app.use(cors());
+app.use(express.json());
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
+app.get("/", (req, res) => {
+  res.send("chat app is working");
+});
+
+
+const dBurl = process.env.DB_CONNECTION;
+mongoose.connect(
+  dBurl,
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  },
+  (error) => {
+    if (!error) {
+      console.log("mongo-db connection working");
+    } else {
+      console.log("check mongo-db connection", error);
+    }
+  }
+);
+mongoose.Promise = global.Promise;
+
+app.listen(PORT, () => console.log(`chat-app listening on ${PORT}`));
+
+```
+
+run nodemon - output should be
+
+```
+^Cm11705:backend ssbt$ nodemon
+[nodemon] 2.0.4
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node server.js`
+chat-app listening on 5000
+mongo-db connection working
+```
+
+You are now set to write your data schemas. Hard-code some test data from your schema in server.js
+
+```
+const messages = [
+  { name: "Zee", message: "Hi" },
+  { name: "Paraic", message: "Hello" },
+];
+```
+
+under the home route write your second route and go to localhost:5000/messages
+
+```
+app.get("/", (req, res) => {
+  res.send("chat app is working");
+});
+
+app.get("/messages", (req, res) => {
+  res.send(messages);
+});
+```
+
+You should see the dataflow in the browser.
