@@ -85,8 +85,6 @@ app.listen(PORT, () => console.log(`chat-app listening on ${PORT}`));
 
 `touch .env` to create a dotenv file for your mongodB in the backend folder
 
-Add the connection test and commit changes - go to github you will see that the `.gitignore` has failed
-
 ```
 DB_CONNECTION=`mongodb+srv://<username>:<password>@cluster0.xfd8y.mongodb.net/test`
 ```
@@ -119,6 +117,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ```
+
+In terminal git config --global core.excludesfile ~/.gitignore_global
 
 ### Front-end libraries
 
