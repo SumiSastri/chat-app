@@ -8,10 +8,6 @@
 
 - cd into the backend folder `npm init -y`
 - reinstall dev-dependencies
-- if app crashes as it is already listening to on the port requested run a `pkill node` short for (process kill node) as `control c` only clears the terminal without killing the instance of node.
-  More debugging on stackoverflow [https://stackoverflow.com/questions/4075287/node-express-eaddrinuse-address-already-in-use-kill-server]
-
-### Back-end dependencies and libraries
 
 Dev dependencies to ensure transpiling of ES-6
 
@@ -19,11 +15,41 @@ Dev dependencies to ensure transpiling of ES-6
 &&
 [npm install node express request-promise cors dotenv mongoose bodyparser socket.io -S]
 
+- if app crashes as it is already listening to on the port requested run a `pkill node` short for (process kill node) as `control c` only clears the terminal without killing the instance of node.
+  More debugging on stackoverflow [https://stackoverflow.com/questions/4075287/node-express-eaddrinuse-address-already-in-use-kill-server]
+
+For the MongoDB - create a dotenv file and connect to DB collection
+DB_CONNECTION=mongodb+srv://<username>:<password>@cluster0.xfd8y.mongodb.net/test
+
 ### Front-end libraries
 
-1. [npx create-react-app]
-2. [npm install tachyons -s] (installs tachyons) A CSS tool-kit for rapid styling (tachy is the Greek word for rapid!) They are responsive based on mobile-first design, with low-specificity that can be overwritten and excellent documentation [http://tachyons.io/docs/] to experiment with - ideal for quick mock-ups and M
-3. [npm install --save react-tilt] animation in React.js
+In root file once you clone, you may have to run these steps in this order to get the app to work
+
+```
+rm -rf node_modules  or
+rm -rf node_modules  --force
+
+rm ./package-lock.json
+Or
+rm .\package-lock.json
+
+npm run clean
+npm cache clean
+
+npm install -g npm@latest
+
+npm uninstall -g create-react-app
+npm install -g create-react-app
+
+Or
+npm install --save react react-dom react-scripts (and any other dependencies)
+```
+
+The dependencies for this app are tachyons react-tilt
+
+Tachyons: A CSS tool-kit for rapid styling (tachy is the Greek word for rapid!) They are responsive based on mobile-first design, with low-specificity that can be overwritten and excellent documentation [http://tachyons.io/docs/] to experiment with - ideal for quick mock-ups and M
+
+React-Tilt: animation in React.js
 
 ### Client side security
 
